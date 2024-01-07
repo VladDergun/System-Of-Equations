@@ -72,7 +72,6 @@ int main()
         }
         //Creating the System of equations
 
-        //STOP NAHUY
         float eps;
 
         while(1){
