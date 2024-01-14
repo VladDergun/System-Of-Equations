@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 
+float CheckValue(char *prompt);
 int main()
 {
     int size;
@@ -16,8 +17,7 @@ int main()
 
     while(1){
         int flag = 1;
-        printf("Enter the amount of equations: ");
-        scanf("%d", &size);
+        size = (int)CheckValue("Enter the amount of equations: ");
         a = (float **)malloc(size * sizeof(float*));
         b = (float*)malloc(size * sizeof(float));
         delta = (float*)malloc(size * sizeof(float));
@@ -38,10 +38,10 @@ int main()
 
                 for (int j = 0; j < size; j++) {
                     printf("Enter value for the a%d%d: ", i+1, j+1);
-                    scanf("%f", &a[i][j]);
+                    a[i][j] = CheckValue("");
                 }
                 printf("Enter value for the b%d: ", i+1);
-                scanf("%f", &b[i]);
+                b[i] = CheckValue("");
                 printf("\n");
 
             }
@@ -168,3 +168,28 @@ int main()
     return 0;
 }
 
+
+float CheckValue(char *prompt){
+    char buffer[100];
+
+    printf("%s", prompt);
+    while(1){
+        int checkI = 1;
+        scanf("%99s", buffer);
+        for(int i = 0; buffer[i]; i++){
+            if (isdigit(buffer[i]) == 0 && buffer[i] != '.' && buffer[i])
+            {
+                printf("\nYour input is invalid. Reenter: ");
+                checkI = 0;
+                break;
+            }
+
+        }
+        if(checkI == 1){
+            break;
+        }
+    }
+    return atof(buffer);
+
+
+}
